@@ -1,6 +1,6 @@
 ELK docker stack (except without the 'L') for Gaia data.
 
-== Quick Start
+## Quick Start
 
 * Edit .env and set a BASE directory with lots and lots of free fast storage space
 * Start the docker stack via `docker-compose up -d`
@@ -12,7 +12,7 @@ ELK docker stack (except without the 'L') for Gaia data.
 * Wait for it...
 * Play with your data via Kibana
 
-== What?
+## What?
 
 * You can make HR diagrams by plotting `lum_val` against `teff_val`
 * You can make a sky density map by mapping the `coordinates` field a map
