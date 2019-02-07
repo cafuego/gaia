@@ -1,0 +1,329 @@
+{
+  "mapping": {
+    "gaia": {
+      "properties": {
+        "@version": {
+          "type": "long"
+        },
+        "a_g_percentile_lower": {
+          "type": "float"
+        },
+        "a_g_percentile_upper": {
+          "type": "float"
+        },
+        "a_g_val": {
+          "type": "float"
+        },
+        "astrometric_chi2_al": {
+          "type": "float"
+        },
+        "astrometric_excess_noise": {
+          "type": "long"
+        },
+        "astrometric_excess_noise_sig": {
+          "type": "long"
+        },
+        "astrometric_gof_al": {
+          "type": "float"
+        },
+        "astrometric_matched_observations": {
+          "type": "long"
+        },
+        "astrometric_n_bad_obs_al": {
+          "type": "long"
+        },
+        "astrometric_n_good_obs_al": {
+          "type": "long"
+        },
+        "astrometric_n_obs_ac": {
+          "type": "long"
+        },
+        "astrometric_n_obs_al": {
+          "type": "long"
+        },
+        "astrometric_params_solved": {
+          "type": "long"
+        },
+        "astrometric_primary_flag": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "astrometric_pseudo_colour": {
+          "type": "float"
+        },
+        "astrometric_pseudo_colour_error": {
+          "type": "float"
+        },
+        "astrometric_sigma5d_max": {
+          "type": "float"
+        },
+        "astrometric_weight_al": {
+          "type": "float"
+        },
+        "b": {
+          "type": "float"
+        },
+        "bp_g": {
+          "type": "float"
+        },
+        "bp_rp": {
+          "type": "float"
+        },
+        "coordinates": {
+          "type": "geo_point"
+        },
+        "dec": {
+          "type": "float"
+        },
+        "dec_error": {
+          "type": "float"
+        },
+        "dec_parallax_corr": {
+          "type": "float"
+        },
+        "dec_pmdec_corr": {
+          "type": "float"
+        },
+        "dec_pmra_corr": {
+          "type": "float"
+        },
+        "designation": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "duplicated_source": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "e_bp_min_rp_percentile_lower": {
+          "type": "long"
+        },
+        "e_bp_min_rp_percentile_upper": {
+          "type": "float"
+        },
+        "e_bp_min_rp_val": {
+          "type": "float"
+        },
+        "ecl_lat": {
+          "type": "float"
+        },
+        "ecl_lon": {
+          "type": "float"
+        },
+        "flame_flags": {
+          "type": "long"
+        },
+        "frame_rotator_object_type": {
+          "type": "long"
+        },
+        "g_rp": {
+          "type": "float"
+        },
+        "l": {
+          "type": "float"
+        },
+        "lum_percentile_lower": {
+          "type": "float"
+        },
+        "lum_percentile_upper": {
+          "type": "float"
+        },
+        "lum_val": {
+          "type": "float"
+        },
+        "matched_observations": {
+          "type": "long"
+        },
+        "mean_varpi_factor_al": {
+          "type": "float"
+        },
+        "parallax": {
+          "type": "float"
+        },
+        "parallax_error": {
+          "type": "float"
+        },
+        "parallax_over_error": {
+          "type": "float"
+        },
+        "parallax_pmdec_corr": {
+          "type": "float"
+        },
+        "parallax_pmra_corr": {
+          "type": "float"
+        },
+        "phot_bp_mean_flux": {
+          "type": "float"
+        },
+        "phot_bp_mean_flux_error": {
+          "type": "float"
+        },
+        "phot_bp_mean_flux_over_error": {
+          "type": "float"
+        },
+        "phot_bp_mean_mag": {
+          "type": "float"
+        },
+        "phot_bp_n_obs": {
+          "type": "long"
+        },
+        "phot_bp_rp_excess_factor": {
+          "type": "float"
+        },
+        "phot_g_mean_flux": {
+          "type": "float"
+        },
+        "phot_g_mean_flux_error": {
+          "type": "float"
+        },
+        "phot_g_mean_flux_over_error": {
+          "type": "float"
+        },
+        "phot_g_mean_mag": {
+          "type": "float"
+        },
+        "phot_g_n_obs": {
+          "type": "long"
+        },
+        "phot_proc_mode": {
+          "type": "long"
+        },
+        "phot_rp_mean_flux": {
+          "type": "float"
+        },
+        "phot_rp_mean_flux_error": {
+          "type": "float"
+        },
+        "phot_rp_mean_flux_over_error": {
+          "type": "float"
+        },
+        "phot_rp_mean_mag": {
+          "type": "float"
+        },
+        "phot_rp_n_obs": {
+          "type": "long"
+        },
+        "phot_variable_flag": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "pmdec": {
+          "type": "float"
+        },
+        "pmdec_error": {
+          "type": "float"
+        },
+        "pmra": {
+          "type": "float"
+        },
+        "pmra_error": {
+          "type": "float"
+        },
+        "pmra_pmdec_corr": {
+          "type": "float"
+        },
+        "priam_flags": {
+          "type": "long"
+        },
+        "ra": {
+          "type": "float"
+        },
+        "ra_dec_corr": {
+          "type": "float"
+        },
+        "ra_error": {
+          "type": "float"
+        },
+        "ra_parallax_corr": {
+          "type": "float"
+        },
+        "ra_pmdec_corr": {
+          "type": "float"
+        },
+        "ra_pmra_corr": {
+          "type": "float"
+        },
+        "radial_velocity": {
+          "type": "float"
+        },
+        "radial_velocity_error": {
+          "type": "float"
+        },
+        "radius_percentile_lower": {
+          "type": "float"
+        },
+        "radius_percentile_upper": {
+          "type": "float"
+        },
+        "radius_val": {
+          "type": "float"
+        },
+        "random_index": {
+          "type": "long"
+        },
+        "ref_epoch": {
+          "type": "float"
+        },
+        "rv_nb_transits": {
+          "type": "long"
+        },
+        "rv_template_fe_h": {
+          "type": "long"
+        },
+        "rv_template_logg": {
+          "type": "float"
+        },
+        "rv_template_teff": {
+          "type": "long"
+        },
+        "solution_id": {
+          "type": "float"
+        },
+        "source_id": {
+          "type": "float"
+        },
+        "teff_percentile_lower": {
+          "type": "long"
+        },
+        "teff_percentile_upper": {
+          "type": "float"
+        },
+        "teff_val": {
+          "type": "long"
+        },
+        "type": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "visibility_periods_used": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}

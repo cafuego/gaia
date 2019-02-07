@@ -1,0 +1,137 @@
+#!/usr/bin/php
+<?php
+/**
+ * Converts a GAIA data CSV to JSON.
+ *
+ * This allows data from the data CSV to be posted directory to an
+ * elasticsearch index, for analysis with Kibana.
+ */
+
+define('SCHEMA_VERSION', 1);
+
+// Did we get passed a filename?
+if ($_SERVER['argc'] < 2 || $_SERVER['argc'] > 2) {
+  die("Usage: csv2elk filename");
+}
+
+// Ok, does the file exist?
+$file = $_SERVER['argv'][1];
+if (!file_exists($file)) {
+  die("File '{$file}' does not exist");
+}
+
+// Oh, yes... set this. Your LBs are set to UTC are they not?
+date_default_timezone_set('UTC');
+
+// LOL. We will have ALL.
+ini_set('memory_limit', -1);
+
+// Load the config from the ini file if it exists.
+if (file_exists('config.ini')) {
+  $config = parse_ini_file('config.ini');
+}
+
+// Assemble the index name from the path to the data file.
+$temp = explode('/', $file);
+
+/**
+ * We have what we need. Parse it.
+ *
+ * Start with the header line and remove the empty last field.
+ */
+$fp = fopen($file, "r");
+if (!$fp) {
+  die("Unable to open file '{$file}'");
+}
+
+// The first line contains the headers.
+$headers = fgetcsv($fp, 4096);
+
+// Assemble an output array.
+$output = [];
+
+// Read the stats line by line.
+while (!feof($fp)) {
+  $line = fgetcsv($fp, 4096);
+
+  // Deal with empty lines.
+  if (!is_array($line)) {
+    continue;
+  }
+
+  // Add some extra metadata fields.
+  $data = [
+    '@version'    => SCHEMA_VERSION,
+    'type'        => 'gaia',
+  ];
+
+  // Add each data field to the output array, indexed with the column name.
+  // Ensure that numbers remain numbers.
+  foreach ($line as $i => $item) {
+    if (is_numeric($item)) {
+      $data[$headers[$i]] = floatval($item);
+    }
+    else {
+      $data[$headers[$i]] = $item;
+    }
+  }
+
+  // Add the coordinates.
+  $lon = ($data['ra'] > 180) ? $data['ra'] - 360 : $data['ra'];
+  $lat = $data['dec'];
+  $data['coordinates'] = ['lon' => $lon, 'lat' => $lat];
+
+  $output[] = $data;
+}
+
+// Close it.
+fclose($fp);
+
+printf ("Loaded %d items\n", count($output));
+
+// Loop through the output array and dump each element as a JSON object.
+
+// If a config file exists and defines an elasticsearch instance, send the
+// data there. Otherwise, dump it to stdout.
+if (isset($config['output']) && $config['output'] == 'elasticsearch') {
+  // Create an index.
+  // $index = strftime("gaia-%Y.%m.%d", time());
+  $index = trim($temp[3]);
+
+  $counter = 0;
+
+  // Create the URI.
+  $uri = $config['elasticsearch'] . '/' . $index . '/gaia';
+
+  // Post each item to ES.
+  $ch = curl_init($uri);
+  foreach ($output as $stat) {
+    $data = json_encode($stat);
+
+    if (!empty($config['username']) && !empty($config['password'])) {
+      curl_setopt($ch, CURLOPT_USERPWD, $config['username'] . ':' . $config['password']);
+    }
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($data)]);
+    $result = curl_exec($ch);
+    // $info = curl_getinfo($ch);
+    // printf("%s: %d %s\n", $info['url'], $info['http_code'], ($info['http_code'] >= 299) ? 'ERROR' : 'OK');
+    if ($counter % 10 == 0) {
+      curl_close($ch);
+      $ch = curl_init($uri);
+    }
+
+    $counter++;
+    if ($counter % 1000 == 0) {
+      printf("Inserted %d items.\n", $counter);
+    }
+  }
+  curl_close($ch);
+}
+else {
+  foreach ($output as $stat) {
+    printf("%s\n", json_encode($stat));
+  }
+}
