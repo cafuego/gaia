@@ -19,4 +19,6 @@ ELK docker stack (except without the 'L') for Gaia data.
 
 ## More Info
 
+All Gaia documentation and data license info is available at https://gea.esac.esa.int/archive/documentation/GDR2/index.html
+
 You can find information about the available data fields at http://dc.zah.uni-heidelberg.de/tableinfo/gdr2mock.main?tapinfo=True
