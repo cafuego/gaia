@@ -16,3 +16,7 @@ ELK docker stack (except without the 'L') for Gaia data.
 
 * You can make HR diagrams by plotting `lum_val` against `teff_val`
 * You can make a sky density map by mapping the `coordinates` field a map
+
+## More Info
+
+You can find information about the available data fields at http://dc.zah.uni-heidelberg.de/tableinfo/gdr2mock.main?tapinfo=True
